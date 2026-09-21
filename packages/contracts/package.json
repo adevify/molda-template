@@ -1,0 +1,9 @@
+{
+  "name": "@molda-template/contracts",
+  "version": "0.0.0",
+  "private": true,
+  "types": "index.d.ts",
+  "peerDependencies": {
+    "react": "19.2.0"
+  }
+}
