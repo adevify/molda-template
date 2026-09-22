@@ -16,6 +16,7 @@ packages/
   components/          reusable integration-free React components
   pages/               integration-free React pages
   contracts/           declarations shared by pages, adapters, and apps
+  project-types/       project-only metadata extending installed module types
 .preview/               preview host, real fixtures, and generated bundle
 project/                versioned brief, surveys, approvals, and specifications
 scripts/                deterministic preview tooling
@@ -40,3 +41,7 @@ npm run preview:build
 `preview:build` intentionally fails until at least one real `*.page.tsx` page has been
 created from accepted project requirements. The generated `.preview/bundle.js` always
 uses the same page and component sources that application UIs will consume later.
+
+The complete declaration-only module catalog is installed from the `@molda-org` npm
+organization through its `next` dist-tag. It is development metadata for Coder and is
+never a substitute for project-specific survey evidence.

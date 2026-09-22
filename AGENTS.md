@@ -9,4 +9,5 @@ Before any action, read and follow:
 5. the Markdown documents for every completed workflow phase
 
 The branch name must equal the project key. During preview phases, enforce the authored
-path allowlist in `CODER.md`; do not implement application or backend code.
+path allowlist in `CODER.md`; reuse installed `@molda-org/*` declarations, extend only
+missing project metadata, and do not implement application or backend code.

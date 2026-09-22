@@ -2,7 +2,8 @@
 
 This is the mandatory execution contract for every Coder run in a customer-project
 branch. Read `FIRST.md`, `project/project.md`, `project/workflow.md`, all completed
-survey Markdown files, and the current design decision files before editing anything.
+survey Markdown files, the current design decision files, and the installed
+`@molda-org/*` declarations before editing anything.
 
 ## Workflow gates
 
@@ -29,6 +30,7 @@ or refine the real reusable React presentation and a quick preview of it.
 
 - `packages/components/src/**`
 - `packages/pages/src/**`
+- `packages/project-types/index.d.ts`
 - `.preview/fixtures/**`
 - `.preview/bindings.ts`
 
@@ -52,6 +54,8 @@ Do not edit generated files manually.
   `XMLHttpRequest`, WebSocket, database clients, and browser storage;
 - edits outside the allowed authored paths merely to make verification pass;
 - fake examples, canned products, invented testimonials, or placeholder business data.
+- redeclarations of an entity, action, view, hook, contract, or metadata already
+  represented by an installed `@molda-org/*` package.
 
 If required information is missing, represent an honest empty/loading/error state or
 return a precise missing-context report. Never manufacture project facts.
@@ -81,6 +85,13 @@ return a precise missing-context report. Never manufacture project facts.
 
 - `.preview/fixtures/project.json` contains only facts derived from the initial brief and
   accepted survey answers.
+- `.preview/fixtures/SOURCES.md` maps every populated fixture section to its exact
+  project Markdown file and heading or question identifier.
+- Fixture structures reuse installed `@molda-org/*` types whenever the catalog covers
+  the concept.
+- `packages/project-types/index.d.ts` may add only project-specific metadata absent from
+  the module catalog. Project types must extend or compose module types; they must not
+  copy, rename, or shadow a module-owned type.
 - `.preview/bindings.ts` contains preview-local action implementations needed to
   demonstrate interaction. It must not call a remote API.
 - Application integrations later provide another implementation of the same typed
@@ -105,7 +116,8 @@ npm run preview:build
 ```
 
 Finish only when all checks pass and the required preview artifacts exist. Report the
-changed authored files and the page IDs included in the bundle.
+changed authored files, the module types reused, the project-only type extensions, the
+fixture source mappings, and the page IDs included in the bundle.
 
 ## Design approval gate
 

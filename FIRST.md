@@ -66,6 +66,19 @@ code:
 Search for unresolved `{{...}}` tokens before committing. Tokens documented as examples
 inside `FIRST.md` are exempt; no other tracked file may retain them.
 
+## Install the declaration catalog
+
+The root `devDependencies` intentionally prelist `@molda-org/module-contracts` and all
+20 `@molda-org/*` module declaration packages from the npm `next` channel. Run
+`npm install` after the project substitutions. This resolves the current tested
+declaration catalog, updates `package-lock.json`, and makes the module types available
+to the Coder on the first project branch.
+
+These packages are development-time type information. Do not copy their sources into
+the project, implement them locally, move them to runtime dependencies, or remove
+unselected modules during preview. Module selection happens after design approval;
+the complete declaration catalog remains available for discovery and type reuse.
+
 ## Initial commit
 
 Run the template checks, commit all bootstrap substitutions, and push only the project
@@ -88,7 +101,8 @@ local clone. Do not create a successful project record prematurely.
 
 - The control plane writes questions and accepted answers to `project/surveys/*.md`.
 - The Coder reads `CODER.md` before every run.
-- Preview work remains limited to components, pages, preview fixtures/bindings, and the
-  generated preview bundle until design approval.
+- Preview work remains limited to components, pages, preview fixtures/bindings, the
+  declaration-only `packages/project-types` extension, and the generated preview bundle
+  until design approval.
 - Architecture, API, database entities, modules, and Docker application assembly are
   forbidden until `project/design/approval.md` records approval.
