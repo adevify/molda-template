@@ -18,6 +18,15 @@ evidence. Preview dependencies and versions must not be changed by a Coder run.
 | Packaging | One immutable OCI/Docker image per accepted revision | release | [`docker.md`](./code-rules/docker.md) |
 | Tests | TypeScript and deterministic Node contract/unit tests | every permitted phase | [`testing.md`](./code-rules/testing.md) |
 
+Cross-cutting implementation disciplines are also mandatory:
+
+- [`dependency-management.md`](./code-rules/dependency-management.md)
+- [`configuration.md`](./code-rules/configuration.md)
+- [`error-handling.md`](./code-rules/error-handling.md)
+- [`observability.md`](./code-rules/observability.md)
+- [`consistency.md`](./code-rules/consistency.md)
+- [`package-layout.md`](./code-rules/package-layout.md)
+
 Package versions must be exact and consistent across the workspace. The template lockfile is authoritative for installed
 preview dependencies. Build-phase additions require an approved architecture decision, one workspace-wide version, a
 lockfile update, TypeScript validation, and relevant contract tests. Do not add competing frameworks merely because a
