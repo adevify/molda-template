@@ -5,4 +5,4 @@
 - [x] Installed shared contract requires `mcp`.
 - [x] Module packages depend on the same shared contract version.
 - [x] TypeScript, tests (11/11), preview verification, and diff checks pass.
-- [ ] Commit pushed and local checkout synchronized.
+- [x] Commits pushed (`11abc5d`, `16d8fb3`) and local checkout synchronized.
