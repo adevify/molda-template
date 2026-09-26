@@ -6,6 +6,12 @@ import { dirname, extname, join, resolve } from "node:path";
 const root = resolve(import.meta.dirname, "..");
 const codeRuleNames = [
   "architecture.md",
+  "dependency-management.md",
+  "configuration.md",
+  "error-handling.md",
+  "observability.md",
+  "consistency.md",
+  "package-layout.md",
   "typescript.md",
   "react-mui.md",
   "node-runtime.md",
@@ -42,6 +48,8 @@ const requiredHandbookDocs = [
   ...codeRuleNames.map((name) => `docs/code-rules/${name}`),
   "docs/modules/README.md",
   "docs/modules/catalog.md",
+  "docs/modules/mcp-contract.md",
+  "docs/modules/mcp-tool-plan.md",
   ...exampleNames.map((name) => `docs/examples/${name}`),
 ];
 
@@ -95,6 +103,75 @@ test("the module catalog covers all 20 installed domain declaration packages", a
       catalog.includes(`@molda-org/${moduleName}`) || catalog.includes("`" + moduleName + "`"),
       `docs/modules/catalog.md must represent module ${moduleName}`,
     );
+  }
+});
+
+test("module manifest and individual specifications match installed declarations", async () => {
+  const packageJson = JSON.parse(await readFile(join(root, "package.json"), "utf8"));
+  const manifest = JSON.parse(await readFile(join(root, "docs/modules/manifest.json"), "utf8"));
+  const mcpToolPlan = await readFile(join(root, "docs/modules/mcp-tool-plan.md"), "utf8");
+  const expectedIds = Object.keys(packageJson.devDependencies)
+    .filter((name) => name.startsWith("@molda-org/") && name !== "@molda-org/module-contracts")
+    .map((name) => name.slice("@molda-org/".length))
+    .sort();
+  assert.deepEqual(Object.keys(manifest.modules).sort(), expectedIds);
+
+  const headings = [
+    "Identity",
+    "Responsibility",
+    "Non-responsibility",
+    "Dependencies and ownership",
+    "Data model",
+    "API",
+    "Validation and invariants",
+    "Permissions",
+    "Events",
+    "Journal actions and views",
+    "Composer and MCP",
+    "Migrations",
+    "Tests and fixtures",
+    "React SDK",
+    "Limitations",
+    "Correct example",
+    "Avoid",
+    "Readiness evidence",
+  ];
+  const quotedValues = (source) => [...source.matchAll(/'([^']+)'/g)].map((match) => match[1]);
+  const declarationUnion = (source, suffix) => {
+    const match = source.match(new RegExp(`export type [A-Za-z]+${suffix} = ([^;]+);`));
+    assert.ok(match, `declaration must export a ${suffix} union`);
+    return quotedValues(match[1]);
+  };
+
+  for (const id of expectedIds) {
+    const entry = manifest.modules[id];
+    assert.equal(entry.package, `@molda-org/${id}`);
+    const declaration = await readFile(join(root, "node_modules", "@molda-org", id, "index.d.ts"), "utf8");
+    assert.equal(entry.stage, declaration.match(/readonly stage: '([^']+)'/)?.[1]);
+    assert.equal(entry.category, declaration.match(/readonly category: '([^']+)'/)?.[1]);
+    assert.equal(entry.purpose, declaration.match(/readonly purpose: '([^']+)'/)?.[1]);
+    assert.deepEqual(entry.actions, declarationUnion(declaration, "Action"));
+    assert.deepEqual(entry.views, declarationUnion(declaration, "View"));
+    assert.deepEqual(entry.hooks, declarationUnion(declaration, "Hook"));
+
+    const specificationPath = join(root, "docs/modules", entry.spec);
+    const specification = await readFile(specificationPath, "utf8");
+    for (const heading of headings) {
+      assert.match(
+        specification,
+        new RegExp(`^##\\s+${heading.replaceAll(" ", "\\s+")}\\s*$`, "im"),
+        `${entry.spec} must have a ${heading} heading`,
+      );
+    }
+    for (const declaredName of [...entry.actions, ...entry.views, ...entry.hooks]) {
+      assert.ok(specification.includes(`\`${declaredName}\``), `${entry.spec} must include ${declaredName}`);
+    }
+    for (const toolOperation of [...entry.actions, ...entry.views]) {
+      assert.ok(
+        mcpToolPlan.includes(`\`${toolOperation}\``),
+        `docs/modules/mcp-tool-plan.md must explicitly list ${id}.${toolOperation}`,
+      );
+    }
   }
 });
 

@@ -1,0 +1,140 @@
+{
+  "schemaVersion": 1,
+  "modules": {
+    "catalog-pricing": {
+      "package": "@molda-org/catalog-pricing", "stage": "initial", "category": "commerce",
+      "purpose": "Services, products, menus, packages, variants, options, availability, prices, and pricing rules.",
+      "actions": ["createCatalogItem", "updateCatalogItem", "updatePrice"],
+      "views": ["catalog", "priceList", "availabilityRules"],
+      "hooks": ["useCatalog", "useCatalogItem", "usePrice"], "spec": "specs/catalog-pricing.md"
+    },
+    "content": {
+      "package": "@molda-org/content", "stage": "initial", "category": "platform-core",
+      "purpose": "Business profile, locations, hours, pages, SEO, and legal content.",
+      "actions": ["updateBusinessProfile", "publishContent"], "views": ["businessProfile", "publishedPages"],
+      "hooks": ["useBusinessProfile", "useContentPage"], "spec": "specs/content.md"
+    },
+    "core": {
+      "package": "@molda-org/core", "stage": "initial", "category": "platform-core",
+      "purpose": "Project identity, locale, time zone, currency, configuration, and feature flags.",
+      "actions": ["updateProjectConfiguration", "setFeatureFlag"], "views": ["projectConfiguration", "featureFlags"],
+      "hooks": ["useProjectConfiguration", "useFeatureFlags"], "spec": "specs/core.md"
+    },
+    "customers": {
+      "package": "@molda-org/customers", "stage": "initial", "category": "platform-core",
+      "purpose": "Customer contacts, addresses, notes, tags, and consent.",
+      "actions": ["createCustomer", "updateCustomer", "recordConsent"],
+      "views": ["customerDirectory", "customerProfile", "consentHistory"],
+      "hooks": ["useCustomers", "useCustomer"], "spec": "specs/customers.md"
+    },
+    "events-tickets": {
+      "package": "@molda-org/events-tickets", "stage": "phase-two", "category": "operations",
+      "purpose": "Events, capacity, ticket types, registration, admission, and attendance.",
+      "actions": ["createEvent", "issueTicket", "cancelTicket", "checkInTicket"],
+      "views": ["upcomingEvents", "ticketSales", "attendance"],
+      "hooks": ["useEvents", "useTickets"], "spec": "specs/events-tickets.md"
+    },
+    "forms": {
+      "package": "@molda-org/forms", "stage": "initial", "category": "platform-core",
+      "purpose": "Configurable forms, custom fields, validation, intake, and attachments.",
+      "actions": ["createForm", "submitForm", "reviewSubmission"], "views": ["forms", "formSubmissions"],
+      "hooks": ["useFormDefinition", "useSubmitForm"], "spec": "specs/forms.md"
+    },
+    "identity": {
+      "package": "@molda-org/identity", "stage": "initial", "category": "platform-core",
+      "purpose": "Customer and staff authentication, sessions, roles, and permissions.",
+      "actions": ["createAccount", "assignRole", "revokeSession"],
+      "views": ["accounts", "activeSessions", "roleAssignments"],
+      "hooks": ["useSession", "usePermissions"], "spec": "specs/identity.md"
+    },
+    "media": {
+      "package": "@molda-org/media", "stage": "initial", "category": "platform-core",
+      "purpose": "Images, documents, upload, transformation, access, and storage.",
+      "actions": ["createUpload", "updateMediaAccess", "deleteMedia"], "views": ["mediaLibrary", "mediaUsage"],
+      "hooks": ["useMediaLibrary", "useUploadMedia"], "spec": "specs/media.md"
+    },
+    "memberships": {
+      "package": "@molda-org/memberships", "stage": "phase-two", "category": "commerce",
+      "purpose": "Subscriptions, session packages, validity, consumption, pause, renewal, and recurring payment.",
+      "actions": ["createMembership", "consumeEntitlement", "pauseMembership", "renewMembership"],
+      "views": ["activeMemberships", "membershipUsage", "renewals"],
+      "hooks": ["useMembership", "useMembershipUsage"], "spec": "specs/memberships.md"
+    },
+    "notifications": {
+      "package": "@molda-org/notifications", "stage": "initial", "category": "platform-core",
+      "purpose": "Email, SMS, push, templates, preferences, retries, and delivery evidence.",
+      "actions": ["sendNotification", "retryNotification", "updateNotificationPreferences"],
+      "views": ["notificationTemplates", "notificationDeliveryLog"],
+      "hooks": ["useNotificationPreferences", "useNotificationStatus"], "spec": "specs/notifications.md"
+    },
+    "orders-fulfillment": {
+      "package": "@molda-org/orders-fulfillment", "stage": "initial", "category": "commerce",
+      "purpose": "Cart, checkout, order lifecycle, pickup, delivery, tracking, and handoff.",
+      "actions": ["placeOrder", "updateOrderStatus", "assignFulfillment", "confirmHandoff"],
+      "views": ["orders", "ordersByStatus", "fulfillmentQueue"],
+      "hooks": ["useCart", "useCheckout", "useCustomerOrders"], "spec": "specs/orders-fulfillment.md"
+    },
+    "payments": {
+      "package": "@molda-org/payments", "stage": "initial", "category": "commerce",
+      "purpose": "Charges, deposits, cash on delivery, refunds, reconciliation, webhooks, and receipts.",
+      "actions": ["createPayment", "capturePayment", "refundPayment", "reconcilePayment"],
+      "views": ["payments", "refunds", "reconciliation"],
+      "hooks": ["useCreatePayment", "usePaymentStatus", "useRefundPayment"], "spec": "specs/payments.md"
+    },
+    "promotions-loyalty": {
+      "package": "@molda-org/promotions-loyalty", "stage": "phase-two", "category": "commerce",
+      "purpose": "Coupons, discounts, points, referrals, campaigns, bundles, and repeat-customer rules.",
+      "actions": ["createPromotion", "applyReward", "adjustLoyaltyBalance"],
+      "views": ["activePromotions", "customerLoyalty", "campaignResults"],
+      "hooks": ["usePromotions", "useLoyaltyBalance"], "spec": "specs/promotions-loyalty.md"
+    },
+    "quotes-custom-orders": {
+      "package": "@molda-org/quotes-custom-orders", "stage": "phase-two", "category": "operations",
+      "purpose": "Requests, requirements, estimates, quotes, revisions, approval, deposits, and delivery.",
+      "actions": ["requestQuote", "reviseQuote", "acceptQuote", "approveDeliverable"],
+      "views": ["quoteRequests", "activeCustomOrders", "awaitingApproval"],
+      "hooks": ["useQuoteRequest", "useCustomOrder"], "spec": "specs/quotes-custom-orders.md"
+    },
+    "rentals": {
+      "package": "@molda-org/rentals", "stage": "phase-two", "category": "operations",
+      "purpose": "Rentable inventory, availability, booking periods, deposits, pickup, and return.",
+      "actions": ["createRental", "confirmPickup", "extendRental", "confirmReturn"],
+      "views": ["availableRentals", "activeRentals", "overdueReturns"],
+      "hooks": ["useRentalAvailability", "useRental"], "spec": "specs/rentals.md"
+    },
+    "reservations": {
+      "package": "@molda-org/reservations", "stage": "initial", "category": "operations",
+      "purpose": "Reservation lifecycle, recurrence, capacity, waitlists, deposits, and reminders.",
+      "actions": ["createReservation", "confirmReservation", "rescheduleReservation", "cancelReservation", "markNoShow"],
+      "views": ["todaysReservations", "availableSlots", "cancelledReservations", "customerReservationHistory"],
+      "hooks": ["useReservations", "useCreateReservation", "useCancelReservation"], "spec": "specs/reservations.md"
+    },
+    "scheduling": {
+      "package": "@molda-org/scheduling", "stage": "initial", "category": "operations",
+      "purpose": "Working hours, breaks, resources, duration, buffers, and available-slot calculation.",
+      "actions": ["updateWorkingHours", "blockResource", "releaseResource"],
+      "views": ["availableSlots", "resourceSchedule", "blockedPeriods"],
+      "hooks": ["useAvailableSlots", "useResourceSchedule"], "spec": "specs/scheduling.md"
+    },
+    "service-jobs": {
+      "package": "@molda-org/service-jobs", "stage": "phase-two", "category": "operations",
+      "purpose": "Intake, diagnosis, approval, work execution, readiness, and delivery.",
+      "actions": ["createServiceJob", "recordDiagnosis", "approveServiceJob", "completeServiceJob"],
+      "views": ["serviceQueue", "jobsByStatus", "readyForDelivery"],
+      "hooks": ["useServiceJobs", "useServiceJob"], "spec": "specs/service-jobs.md"
+    },
+    "views-exports": {
+      "package": "@molda-org/views-exports", "stage": "initial", "category": "platform-core",
+      "purpose": "Lists, filters, search, saved views, and structured exports.",
+      "actions": ["saveView", "deleteView", "createExport"], "views": ["savedViews", "exportHistory"],
+      "hooks": ["useSavedView", "useCreateExport"], "spec": "specs/views-exports.md"
+    },
+    "workflow-actions-audit": {
+      "package": "@molda-org/workflow-actions-audit", "stage": "initial", "category": "platform-core",
+      "purpose": "State transitions, deterministic actions, approvals, idempotency, audit, and compensation.",
+      "actions": ["executeWorkflowAction", "approveWorkflowAction", "compensateWorkflowAction"],
+      "views": ["workflowHistory", "actionAuditLog", "pendingApprovals"],
+      "hooks": ["useExecuteAction", "useActionAudit"], "spec": "specs/workflow-actions-audit.md"
+    }
+  }
+}

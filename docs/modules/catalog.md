@@ -1,6 +1,9 @@
 # Module catalog
 
-This catalog covers exactly the 20 domain declaration packages currently listed by the template. Declarations are not runtime implementations. Ownership notes are intended boundaries; inspect a package's installed `index.d.ts` and approved architecture before relying on a particular exported type or operation.
+This catalog covers exactly the 20 domain declaration packages currently listed by the template. Declarations are not
+runtime implementations. Ownership notes are intended boundaries; inspect a package's installed `index.d.ts`, its
+[individual specification](./specs/README.md), and approved architecture before relying on an exported type or operation.
+[`manifest.json`](./manifest.json) is the machine-verifiable identity/action/view/hook source for this handbook.
 
 ## Core and identity
 

@@ -31,6 +31,8 @@ Read, in order:
 ### Preview and design iteration
 
 - [`code-rules/typescript.md`](./code-rules/typescript.md)
+- [`code-rules/dependency-management.md`](./code-rules/dependency-management.md)
+- [`code-rules/package-layout.md`](./code-rules/package-layout.md)
 - [`code-rules/react-mui.md`](./code-rules/react-mui.md)
 - [`code-rules/zod-contracts.md`](./code-rules/zod-contracts.md)
 - [`code-rules/testing.md`](./code-rules/testing.md)
@@ -45,7 +47,14 @@ The preview allowlist and prohibitions in `CODER.md` override every build-phase 
 - [`code-rules/module-authoring.md`](./code-rules/module-authoring.md)
 - [`modules/README.md`](./modules/README.md)
 - [`modules/catalog.md`](./modules/catalog.md)
+- [`modules/specs/README.md`](./modules/specs/README.md)
+- [`modules/mcp-contract.md`](./modules/mcp-contract.md)
+- [`modules/mcp-tool-plan.md`](./modules/mcp-tool-plan.md)
 - [`code-rules/security.md`](./code-rules/security.md)
+- [`code-rules/configuration.md`](./code-rules/configuration.md)
+- [`code-rules/error-handling.md`](./code-rules/error-handling.md)
+- [`code-rules/observability.md`](./code-rules/observability.md)
+- [`code-rules/consistency.md`](./code-rules/consistency.md)
 
 Architecture records what the project needs. It does not implement it.
 
@@ -86,6 +95,11 @@ Architecture records what the project needs. It does not implement it.
 | Async work | [`events.md`](./code-rules/events.md) | Delivery is at least once; handlers are idempotent. |
 | UI serving | [`static-uis.md`](./code-rules/static-uis.md) | One image may serve a root UI and named UI overrides. |
 | Module boundaries | [`modules/catalog.md`](./modules/catalog.md) | Reuse a module contract; extend only genuinely project-specific metadata. |
+| Dependencies | [`dependency-management.md`](./code-rules/dependency-management.md) | One exact direct version across the workspace; lockfile is committed. |
+| Configuration | [`configuration.md`](./code-rules/configuration.md) | Validate once at composition and never expose server secrets to UIs. |
+| Errors | [`error-handling.md`](./code-rules/error-handling.md) | Expected failures are stable and unexpected failures are safely mapped once. |
+| Observability | [`observability.md`](./code-rules/observability.md) | Correlate operations without logging prompts, payloads, tokens, or secrets. |
+| Consistency | [`consistency.md`](./code-rules/consistency.md) | Atomic where supported; otherwise explicit recovery, idempotency, and compensation. |
 
 ## Examples
 

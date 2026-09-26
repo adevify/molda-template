@@ -39,9 +39,12 @@ Repositories stay behind module services. A module does not reach into another m
 
 Before a module is considered runnable, its declaration contract and runtime implementation must agree, dependencies must be explicit, configuration must fail clearly when incomplete, and tests must exercise its public contracts. This document does not authorize implementation during an earlier project workflow phase.
 
-Every runtime module must implement all ten shared contract surfaces: data model, API, validation, permissions, events,
-journal actions, journal views, migrations, tests/fixtures, and React SDK. A surface may be intentionally empty only when
-the declaration makes that explicit and contract tests preserve the decision. Module reuse is measured by functional
+Every runtime module must implement the ten currently declared contract surfaces: data model, API, validation,
+permissions, events, journal actions, journal views, migrations, tests/fixtures, and React SDK. Before runtime module
+implementation, the shared declarations must complete the versioned
+[`Module MCP contract`](../modules/mcp-contract.md) migration, after which explicit MCP configuration is an eleventh
+required surface. A surface may be intentionally empty only when the declaration makes that explicit and contract tests
+preserve the decision. Module reuse is measured by functional
 coverage and effort; the current target is 60–75% reusable module behavior, with the remainder justified as design,
 configuration/glue, or unique project requirements.
 
@@ -65,11 +68,13 @@ export const RecordsModule = defineModule({
   migrations,
   testing,
   reactSdk,
+  mcp,
 });
 ```
 
-This is a structural illustration, not permission to add a new catalog module. Actual definitions must satisfy the
-installed `MoldaModuleDefinition` contract and use a registered module ID.
+This is the target structural illustration, not permission to add a new catalog module. Until the versioned MCP
+declaration migration lands, the installed `MoldaModuleDefinition` has only the existing ten fields; do not cast around
+that mismatch or infer MCP from `api`.
 
 ## Avoid
 
@@ -79,6 +84,7 @@ installed `MoldaModuleDefinition` contract and use a registered module ID.
 
 ## Verification
 
-Contract tests must compare the runtime definition with its declaration, validate all ten surfaces, dependencies,
+Contract tests must compare the runtime definition with its declaration, validate all current surfaces plus the target
+explicit MCP surface after its versioned migration, dependencies,
 schemas, authorization, project isolation, migrations, idempotency/retry behavior, events, fixtures, and React SDK
 exports. Run TypeScript and deterministic Node tests before publishing the package.

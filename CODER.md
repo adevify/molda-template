@@ -153,6 +153,12 @@ contracts, selected module boundaries, project-only extensions, authorization mo
 Composer surface, MCP exposure, event ownership, persistence/index plan, static UI
 mapping, and deterministic test evidence.
 
+Every selected module must cite its installed declaration, `docs/modules/manifest.json`,
+and individual `docs/modules/specs/<module>.md` contract. Module runtime work must not
+cast around a declaration mismatch. In particular, explicit module MCP configuration
+requires the versioned declaration migration in `docs/modules/mcp-contract.md`; API
+routers must never be reflected into tools as a fallback.
+
 ## Build phase
 
 Only the build phase implements application code and production integration. Preserve
