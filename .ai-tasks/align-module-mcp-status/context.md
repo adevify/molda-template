@@ -17,4 +17,4 @@ explicit `mcp` surface. Keep module runtimes absent and preserve API/MCP separat
 - [x] Architecture and contract already accepted.
 - [x] Documentation aligned.
 - [x] Validation complete.
-- [ ] Commit pushed.
+- [x] Commit pushed (`28e7d5d`).

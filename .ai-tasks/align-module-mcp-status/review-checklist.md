@@ -5,4 +5,4 @@
 - [x] Read/write declaration policies are distinct.
 - [x] Runtime modules are not claimed as implemented.
 - [x] TypeScript, specification tests, and preview verification pass.
-- [ ] Commit pushed.
+- [x] Commit pushed (`28e7d5d`).
