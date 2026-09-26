@@ -45,3 +45,10 @@ uses the same page and component sources that application UIs will consume later
 The complete declaration-only module catalog is installed from the `@molda-org` npm
 organization through its `next` dist-tag. It is development metadata for Coder and is
 never a substitute for project-specific survey evidence.
+
+## Engineering handbook
+
+[`docs/README.md`](./docs/README.md) routes Coder runs to the exact framework, runtime,
+module, and example documents required by the active workflow phase. `FIRST.md` remains
+the bootstrap authority and `CODER.md` remains the phase-gate authority. Examples never
+grant permission to modify a path that the active phase forbids.

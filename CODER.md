@@ -3,7 +3,9 @@
 This is the mandatory execution contract for every Coder run in a customer-project
 branch. Read `FIRST.md`, `project/project.md`, `project/workflow.md`, all completed
 survey Markdown files, the current design decision files, and the installed
-`@molda-org/*` declarations before editing anything.
+`@molda-org/*` declarations before editing anything. Then use `docs/README.md` to load
+the normative concern documents for the active task. Examples are subordinate to the
+phase gates and never create permission to edit a forbidden path.
 
 ## Workflow gates
 
@@ -146,9 +148,17 @@ After approval and the completed business-flow survey, architecture may decide:
 
 Record these decisions in `project/architecture/specification.md` before implementation.
 
+The architecture specification must identify the applicable `docs/code-rules/`
+contracts, selected module boundaries, project-only extensions, authorization model,
+Composer surface, MCP exposure, event ownership, persistence/index plan, static UI
+mapping, and deterministic test evidence.
+
 ## Build phase
 
 Only the build phase implements application code and production integration. Preserve
 the approved components/pages; connect them through typed adapters instead of rewriting
 them. MongoDB, media, and other stateful services remain external. The repository must
 produce one self-contained project image, versioned from the exact accepted commit.
+All authored application code must follow the normative contracts routed from
+`docs/README.md`; deviations require an explicit reason in the architecture
+specification and must not weaken a security, isolation, phase, or release invariant.

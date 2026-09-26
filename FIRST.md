@@ -101,6 +101,8 @@ local clone. Do not create a successful project record prematurely.
 
 - The control plane writes questions and accepted answers to `project/surveys/*.md`.
 - The Coder reads `CODER.md` before every run.
+- The Coder uses `docs/README.md` to load only the framework and runtime rules required
+  by the active task.
 - Preview work remains limited to components, pages, preview fixtures/bindings, the
   declaration-only `packages/project-types` extension, and the generated preview bundle
   until design approval.
