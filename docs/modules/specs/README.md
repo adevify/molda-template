@@ -40,5 +40,6 @@ Select only modules justified by accepted project requirements. Read each select
 [`../../code-rules/module-authoring.md`](../../code-rules/module-authoring.md), its installed declaration, and the approved
 project architecture.
 
-Module-specific LLM exposure also requires the versioned [`../mcp-contract.md`](../mcp-contract.md) and the explicit
-[`../mcp-tool-plan.md`](../mcp-tool-plan.md); the current declarations do not yet implement that surface.
+Module-specific LLM exposure must follow the declared [`../mcp-contract.md`](../mcp-contract.md) and the explicit
+[`../mcp-tool-plan.md`](../mcp-tool-plan.md). Runtime implementations remain intentionally absent until their separate
+module implementation phase.

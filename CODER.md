@@ -155,9 +155,10 @@ mapping, and deterministic test evidence.
 
 Every selected module must cite its installed declaration, `docs/modules/manifest.json`,
 and individual `docs/modules/specs/<module>.md` contract. Module runtime work must not
-cast around a declaration mismatch. In particular, explicit module MCP configuration
-requires the versioned declaration migration in `docs/modules/mcp-contract.md`; API
-routers must never be reflected into tools as a fallback.
+cast around a declaration mismatch. Explicit module MCP configuration is a required
+declaration surface described in `docs/modules/mcp-contract.md`; API routers must never
+be reflected into tools as a fallback. If the installed `next` package predates that
+surface, stop and update the declarations instead of casting around the mismatch.
 
 ## Build phase
 

@@ -2,42 +2,57 @@
 
 ## Status
 
-Target declaration migration required before runtime module implementation.
+Declared in `@molda-org/module-contracts`; runtime module implementation remains intentionally absent.
 
-The currently published `@molda-org/module-contracts` declaration defines ten reusable surfaces but does not yet contain
-an `mcp` property. That absence must not be interpreted as permission to infer tools from API routes. The next compatible
-contract revision must add the explicit surface below, update every module declaration, republish the `next` catalog, and
-update template tests before module runtimes are implemented.
+The source declaration defines eleven reusable surfaces and requires `mcp` on every module definition. The aligned
+declaration catalog is published through the `next` workflow. If a local install exposes only ten surfaces, refresh the
+locked `next` dependencies; never cast around the mismatch or infer tools from API routes.
 
-## Target declarations
+## Declaration shape
 
 ```ts
-export interface ModuleMcpToolContract {
+export interface ModuleMcpToolBaseContract<TOperation extends string> {
   readonly id: string;
-  readonly operationId: string;
+  readonly operationId: TOperation;
   readonly description: string;
   readonly inputSchemaId: string;
   readonly outputSchemaId: string;
   readonly permissionScopes: readonly string[];
-  readonly effect: "read" | "write";
-  readonly confirmation: "never" | "policy" | "always";
-  readonly idempotency: "not-applicable" | "optional" | "required";
-  readonly receipt: "none" | "summary" | "reversible-when-safe" | "compensation-only";
 }
 
-export interface ModuleMcpContract {
-  readonly tools: readonly ModuleMcpToolContract[];
+export interface ModuleMcpReadToolContract<TOperation extends string>
+  extends ModuleMcpToolBaseContract<TOperation> {
+  readonly effect: "read";
+  readonly confirmation: "never";
+  readonly idempotency: "not-applicable";
+  readonly receipt: "none" | "summary";
+}
+
+export interface ModuleMcpWriteToolContract<TOperation extends string>
+  extends ModuleMcpToolBaseContract<TOperation> {
+  readonly effect: "write";
+  readonly confirmation: "never" | "policy" | "always";
+  readonly idempotency: "optional" | "required";
+  readonly receipt: "summary" | "reversible-when-safe" | "compensation-only";
+}
+
+export interface ModuleMcpContract<TOperation extends string> {
+  readonly tools: readonly (
+    | ModuleMcpReadToolContract<TOperation>
+    | ModuleMcpWriteToolContract<TOperation>
+  )[];
 }
 
 export type MoldaModuleDefinition<TShape extends MoldaModuleShape> = {
   // Existing ten surfaces remain unchanged.
-  readonly mcp: ModuleMcpContract;
+  readonly mcp: ModuleMcpContract<TShape["action"] | TShape["view"]>;
 };
 ```
 
-Tool IDs are globally stable and namespaced: `module.<module-id>.<tool-id>`. `operationId` refers to an owned module
-service operation; it is not an arbitrary router path or function name. Input/output schema IDs refer to exported module
-schemas. The common MCP runtime injects project, actor, session, services, audit, and receipt context outside tool input.
+Tool IDs are globally stable and namespaced: `module.<module-id>.<tool-id>`. `operationId` is constrained to an owned
+module action or view; it is not an arbitrary router path or function name. Input/output schema IDs refer to exported
+module schemas. The common MCP runtime injects project, actor, session, services, audit, and receipt context outside tool
+input.
 
 ## Exposure and discovery
 

@@ -8,8 +8,8 @@ to those specifications. For shared runtime implementation requirements, use
 [module authoring](../code-rules/module-authoring.md). Project composition, Composer discovery, MCP exposure, and events
 are specified in their respective code rules.
 
-The published shared declaration currently lacks an explicit MCP field. The required versioned evolution is specified in
-[`mcp-contract.md`](./mcp-contract.md); do not infer module tools from API routers while that migration is pending.
+The shared declaration requires an explicit MCP field, including `tools: []` when a module intentionally exposes none.
+Its contract is specified in [`mcp-contract.md`](./mcp-contract.md); do not infer module tools from API routers.
 The explicit candidate operations and token-conscious discovery policy are fixed in
 [`mcp-tool-plan.md`](./mcp-tool-plan.md).
 
