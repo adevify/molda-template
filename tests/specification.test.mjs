@@ -106,6 +106,36 @@ test("the module catalog covers all 20 installed domain declaration packages", a
   }
 });
 
+test("the lockfile installs one aligned catalog with the required MCP declaration", async () => {
+  const packageJson = JSON.parse(await readFile(join(root, "package.json"), "utf8"));
+  const packageLock = JSON.parse(await readFile(join(root, "package-lock.json"), "utf8"));
+  const names = Object.keys(packageJson.devDependencies)
+    .filter((name) => name.startsWith("@molda-org/"));
+  const versions = new Set();
+
+  assert.equal(names.length, 21);
+  for (const name of names) {
+    assert.equal(packageJson.devDependencies[name], "next", `${name} must remain on the reviewed next channel`);
+    const locked = packageLock.packages[`node_modules/${name}`];
+    assert.ok(locked, `${name} must be present in package-lock.json`);
+    versions.add(locked.version);
+    if (name !== "@molda-org/module-contracts") {
+      assert.equal(locked.dependencies?.["@molda-org/module-contracts"], locked.version);
+    }
+  }
+  assert.equal(versions.size, 1, "all declaration packages must use one catalog version");
+
+  const sharedDeclaration = await readFile(
+    join(root, "node_modules", "@molda-org", "module-contracts", "index.d.ts"),
+    "utf8",
+  );
+  assert.match(sharedDeclaration, /\| 'mcp';/);
+  assert.match(
+    sharedDeclaration,
+    /readonly mcp: ModuleMcpContract<TShape\['action'\] \| TShape\['view'\]>/,
+  );
+});
+
 test("module manifest and individual specifications match installed declarations", async () => {
   const packageJson = JSON.parse(await readFile(join(root, "package.json"), "utf8"));
   const manifest = JSON.parse(await readFile(join(root, "docs/modules/manifest.json"), "utf8"));
